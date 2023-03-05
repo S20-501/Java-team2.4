@@ -1,3 +1,4 @@
+package com.horstmann.corejava.lab2;
 import java.util.ArrayList;
 
 //если счетом-фактурой считать статистику по всем товарам в наличии, то
@@ -62,8 +63,8 @@ public class Task15 {
                 for(int i=0;i<20-(int) (Math.log10(item.unitPrice) + 1);i++)
                     System.out.print(' ');
 
-                System.out.print(item.unitPrice*item.quantity + "\n");
-                totalPrice+=item.unitPrice*item.quantity;
+                System.out.print(item.price() + "\n");
+                totalPrice+=item.price();
                 totalAmount+=item.quantity;
             }
             System.out.println("Total price: " +  totalPrice);

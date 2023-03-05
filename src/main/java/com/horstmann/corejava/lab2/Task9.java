@@ -1,3 +1,4 @@
+package com.horstmann.corejava.lab2;
 public class Task9 {
     public static class car{
         private final float fuelVolume;
@@ -45,7 +46,7 @@ public class Task9 {
         public float getTotalDistance(){
             return totalDistance;
         }
-
+        public float getAxisPoint(){return axisPoint;}
         public float getFuelRemain(){
             return fuelRemain;
         }
@@ -58,5 +59,6 @@ public class Task9 {
         regularCar.drive(50,1);
         System.out.println("Total distance: "+ regularCar.getTotalDistance());
         System.out.println("Fuel remains: "+ regularCar.getFuelRemain());
+        System.out.println("Axis point: "+ regularCar.getAxisPoint());
     }
 }

@@ -3,7 +3,7 @@
 //"А если вызываемый метод оставляет объект без изменения, то он называется методом доступа"
 
 
-
+package com.horstmann.corejava.lab2;
 public class Task3 {
 
     public static class SheepCounter{

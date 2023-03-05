@@ -1,3 +1,5 @@
+package com.horstmann.corejava.lab2;
+
 import java.time.LocalDate;
 
 public class Task1 {
