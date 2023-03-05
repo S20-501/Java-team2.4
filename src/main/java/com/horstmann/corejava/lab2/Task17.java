@@ -1,6 +1,6 @@
 package com.horstmann.corejava.lab2;
 
-public class Task16 {
+public class Task17 {
     public static class Queue{
         private static class Node{
             private final String string;
@@ -8,6 +8,16 @@ public class Task16 {
 
             public Node(String string){
                 this.string = string;
+            }
+        }
+
+        private class Iterator{
+            public String next(){
+                return remove();
+            }
+
+            public boolean hasNext(){
+                return head != null;
             }
         }
 
@@ -20,13 +30,13 @@ public class Task16 {
                 return this;
             }
 
-            Node iterator = head;
+            Node currentNode = head;
 
-            while (iterator.next != null) {
-                iterator = iterator.next;
+            while (currentNode.next != null) {
+                currentNode = currentNode.next;
             }
 
-            iterator.next = new Node(str);
+            currentNode.next = new Node(str);
 
             return this;
         }
@@ -42,6 +52,11 @@ public class Task16 {
             return str;
         }
 
+
+        public Iterator iterator(){
+            return new Iterator();
+        }
+
     }
 
 
@@ -53,6 +68,15 @@ public class Task16 {
         System.out.println(q.remove());
         System.out.println(q.remove());
         System.out.println(q.remove());
+        System.out.println(q.remove());
+        System.out.println(q.remove());
+
+        Queue.Iterator iterator = q.iterator();
+        q.add("test4").add("test5").add("test6").add("test7");
+
+        while (iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
     }
 
 }
