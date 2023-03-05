@@ -68,8 +68,6 @@ public class Task17 {
         System.out.println(q.remove());
         System.out.println(q.remove());
         System.out.println(q.remove());
-        System.out.println(q.remove());
-        System.out.println(q.remove());
 
         Queue.Iterator iterator = q.iterator();
         q.add("test4").add("test5").add("test6").add("test7");
