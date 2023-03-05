@@ -1,7 +1,7 @@
 package com.horstmann.corejava.lab2;
 
 public class Task16 {
-    static class Queue{
+    public static class Queue{
         private static class Node{
             private final String string;
             private Node next = null;
