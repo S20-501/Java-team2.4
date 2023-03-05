@@ -10,6 +10,8 @@ public class ArrayListImitation {
 
         if (capacity == arr.length)
             arr = grow((capacity+1),arr);
+
+
         arr[(int) capacity] = el;
         //  size = s + 1;
         return arr;
@@ -37,9 +39,14 @@ public class ArrayListImitation {
         System.out.println(Arrays.toString(arr));
         System.out.println(arr.length);
 
-        String[] newArr = addToTheEnd(arr, arr.length, "test");
+        String[] newArr = addToTheEnd(arr, arr.length - 1, "test");
 
         System.out.println(Arrays.toString(newArr));
         System.out.println(newArr.length);
+
+        String[] newArr2 = addToTheEnd(arr, arr.length, "test2");
+
+        System.out.println(Arrays.toString(newArr2));
+        System.out.println(newArr2.length);
     }
 }
