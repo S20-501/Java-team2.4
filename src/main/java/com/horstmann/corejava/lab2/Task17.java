@@ -2,41 +2,68 @@ package com.horstmann.corejava.lab2;
 
 public class Task17 {
     public static class Queue{
-        private static class Node{
+        public class Node{
             private final String string;
             private Node next = null;
 
-            public Node(String string){
+            private Node(String string){
                 this.string = string;
+
+                if (head == null) {
+                    head = this;
+                    return;
+                }
+
+                Node currentNode = head;
+
+                while (currentNode.next != null) {
+                    currentNode = currentNode.next;
+                }
+
+                currentNode.next = this;
             }
         }
 
         private class Iterator{
+            private Node before = null;
+            private Node current = head;
+
             public String next(){
-                return remove();
+                if (current == null) {
+                    throw new IndexOutOfBoundsException("Reached end of queue.");
+                }
+
+                before = current;
+                current = current.next;
+
+                return before.string;
+            }
+
+            public String remove(){
+                if (current == null) {
+                    throw new IndexOutOfBoundsException("Reached end of queue.");
+                }
+
+                String str = current.string;
+
+                if (current == head) {
+                    head = current.next;
+                } else {
+                    before.next = current.next;
+                }
+
+                return str;
             }
 
             public boolean hasNext(){
-                return head != null;
+                return current != null;
             }
         }
 
         private Node head = null;
 
         public Queue add(String str){
-            if (head == null) {
-                head = new Node(str);
-
-                return this;
-            }
-
-            Node currentNode = head;
-
-            while (currentNode.next != null) {
-                currentNode = currentNode.next;
-            }
-
-            currentNode.next = new Node(str);
+            new Node(str);
 
             return this;
         }
@@ -52,13 +79,28 @@ public class Task17 {
             return str;
         }
 
-
         public Iterator iterator(){
             return new Iterator();
         }
 
-    }
+        public String toString(){
+            StringBuilder stringBuilder = new StringBuilder();
 
+            Iterator iterator = iterator();
+
+            while (iterator.hasNext()){
+                stringBuilder.append('[');
+                stringBuilder.append(iterator.next());
+                stringBuilder.append(']');
+
+                if (iterator.hasNext()){
+                    stringBuilder.append(" -> ");
+                }
+            }
+
+            return stringBuilder.toString();
+        }
+    }
 
     public static void main(String[] args){
         Queue q = new Queue();
@@ -69,12 +111,36 @@ public class Task17 {
         System.out.println(q.remove());
         System.out.println(q.remove());
 
-        Queue.Iterator iterator = q.iterator();
+        System.out.println();
+
         q.add("test4").add("test5").add("test6").add("test7");
 
-        while (iterator.hasNext()){
-            System.out.println(iterator.next());
-        }
-    }
+        System.out.println(q);
 
+
+        System.out.println("Remove second elem");
+
+        Queue.Iterator iteratorRem = q.iterator();
+        iteratorRem.next();
+        System.out.println(iteratorRem.remove() + " removed");
+
+        System.out.println(q);
+
+
+        System.out.println("Remove first elem");
+
+        iteratorRem = q.iterator();
+        System.out.println(iteratorRem.remove() + " removed");
+
+        System.out.println(q);
+
+
+        System.out.println("Remove second elem");
+
+        iteratorRem = q.iterator();
+        iteratorRem.next();
+        System.out.println(iteratorRem.remove() + " removed");
+
+        System.out.println(q);
+    }
 }
