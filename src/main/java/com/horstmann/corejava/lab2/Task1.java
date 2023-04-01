@@ -1,25 +1,38 @@
 package com.horstmann.corejava.lab2;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Task1 {
     public static void main(String[] args) {
-        //берем начало года
-        LocalDate date = LocalDate.of(2023, 1, 1);
-        for(int i=1; i<=12; i++) {
+        System.out.print("Enter start day of week:");
+        Scanner scanner = new Scanner(System.in);
+        int numberOfDay = scanner.nextInt();
 
+        if(numberOfDay < 1 || numberOfDay > 7){
+            System.out.println("Incorrect day of week");
+            return;
+        }
+
+        //берем начало года
+        LocalDate date = LocalDate.of(2023, 11, 1);//сделать до конца года или ровно год
+        for(int i=1; i<=12; i++) {
             //отступ в начале месяца
             int value =date.getDayOfWeek().getValue();
-            if(value == 7)
-                value = 1;
-            else
-                value = value+1;
-            for (int j = 1; j < value; j++)
+
+
+            int shift = value - numberOfDay;
+            if(shift<0)
+                shift = 7 + shift;
+
+
+            for (int j = 0; j < shift; j++)
+                //System.out.print(" ");
                 System.out.print("\t");
 
             //вывод дней
-            while (date.getMonthValue() == i) {
-                if(date.getDayOfWeek().getValue() == 7)
+            for(int g=0; g<date.lengthOfMonth(); g++) {
+                if(date.getDayOfWeek().getValue() == numberOfDay)
                     System.out.print("\n");
                 System.out.printf("%4d", date.getDayOfMonth());
                 date = date.plusDays(1);
