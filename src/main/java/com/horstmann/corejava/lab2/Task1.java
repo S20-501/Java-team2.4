@@ -15,7 +15,7 @@ public class Task1 {
         }
 
         //берем начало года
-        LocalDate date = LocalDate.of(2023, 11, 1);//сделать до конца года или ровно год
+        LocalDate date = LocalDate.of(2023, 1, 1);
         for(int i=1; i<=12; i++) {
             //отступ в начале месяца
             int value =date.getDayOfWeek().getValue();
