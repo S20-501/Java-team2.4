@@ -20,14 +20,11 @@ public class Task1 {
             //отступ в начале месяца
             int value =date.getDayOfWeek().getValue();
 
-
             int shift = value - numberOfDay;
             if(shift<0)
                 shift = 7 + shift;
 
-
             for (int j = 0; j < shift; j++)
-                //System.out.print(" ");
                 System.out.print("\t");
 
             //вывод дней
