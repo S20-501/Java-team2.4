@@ -122,8 +122,14 @@ public class Task9 {
             if (s.equals("4")) {
                 System.out.println("Total distance: "+ regularCar.getTotalDistance());
                 System.out.println("Fuel remains: "+ regularCar.getFuelRemain());
-                System.out.println("X Axis point: "+ regularCar.getXAxisPoint());
-                System.out.println("Y Axis point: "+ regularCar.getYAxisPoint());
+                if (regularCar.getXAxisPoint()<0.00001)
+                    System.out.println("X Axis point: 0");
+                else
+                    System.out.println("X Axis point: "+ regularCar.getXAxisPoint());
+                if (regularCar.getYAxisPoint()<0.00001)
+                    System.out.println("Y Axis point: 0");
+                else
+                    System.out.println("Y Axis point: "+ regularCar.getYAxisPoint());
                 continue;
             }
             System.out.print("Wrong input");
