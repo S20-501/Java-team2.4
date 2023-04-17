@@ -10,7 +10,7 @@ public class Task11 {
     public static class Calendar {
 
         public static void show() {
-            LocalDate date = java.time.LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), 1);
+            LocalDate date = java.time.LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), 3);
             showNamesOfWeekDays();
             printDaysOfMonth(date);
         }
