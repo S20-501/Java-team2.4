@@ -8,74 +8,125 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 public interface MyComparator<T> extends Comparator<T> {
+    int compare(T first, T second);
     @Override
     default Comparator<T> reversed() {
-        return Comparator.super.reversed();
+        return (first, second) -> compare(second, first);
     }
 
     @Override
     default Comparator<T> thenComparing(Comparator<? super T> other) {
-        return Comparator.super.thenComparing(other);
+        return (first, second) -> {
+            int result = compare(first, second);
+            if(result == 0){
+                return other.compare(first, second);
+            } else{
+                return result;
+            }
+        };
     }
 
     @Override
-    default <U> Comparator<T> thenComparing(Function<? super T, ? extends U> keyExtractor, Comparator<? super U> keyComparator) {
-        return Comparator.super.thenComparing(keyExtractor, keyComparator);
+    default <U> Comparator<T> thenComparing(Function<? super T, ? extends U> extractor, Comparator<? super U> comparator) {
+        return (first, second) -> {
+            int result = compare(first, second);
+            if(result == 0){
+                return comparator.compare(extractor.apply(first), extractor.apply(second));
+            } else{
+                return result;
+            }
+        };
     }
 
     @Override
-    default <U extends Comparable<? super U>> Comparator<T> thenComparing(Function<? super T, ? extends U> keyExtractor) {
-        return Comparator.super.thenComparing(keyExtractor);
+    default <U extends Comparable<? super U>> Comparator<T> thenComparing(Function<? super T, ? extends U> extractor) {
+        return (first, second) -> {
+            int result = compare(first, second);
+            if(result == 0){
+                return extractor.apply(first).compareTo(extractor.apply(second));
+            } else{
+                return result;
+            }
+        };
     }
 
     @Override
-    default Comparator<T> thenComparingInt(ToIntFunction<? super T> keyExtractor) {
-        return Comparator.super.thenComparingInt(keyExtractor);
+    default Comparator<T> thenComparingInt(ToIntFunction<? super T> extractor) {
+        return (first, second) -> {
+            int result = compare(first, second);
+            if(result == 0){
+                return Integer.compare(extractor.applyAsInt(first), extractor.applyAsInt(second));
+            } else{
+                return result;
+            }
+        };
     }
 
     @Override
-    default Comparator<T> thenComparingLong(ToLongFunction<? super T> keyExtractor) {
-        return Comparator.super.thenComparingLong(keyExtractor);
+    default Comparator<T> thenComparingLong(ToLongFunction<? super T> extractor) {
+        return (first, second) -> {
+            int result = compare(first, second);
+            if(result == 0){
+                return Long.compare(extractor.applyAsLong(first), extractor.applyAsLong(second));
+            } else{
+                return result;
+            }
+        };
     }
 
     @Override
-    default Comparator<T> thenComparingDouble(ToDoubleFunction<? super T> keyExtractor) {
-        return Comparator.super.thenComparingDouble(keyExtractor);
+    default Comparator<T> thenComparingDouble(ToDoubleFunction<? super T> extractor) {
+        return (first, second) -> {
+            int result = compare(first, second);
+            if(result == 0){
+                return Double.compare(extractor.applyAsDouble(first), extractor.applyAsDouble(second));
+            } else{
+                return result;
+            }
+        };
     }
 
     static <T extends Comparable<? super T>> Comparator<T> reverseOrder() {
-        return Comparator.reverseOrder();
+        return (first, second) -> second.compareTo(first);
     }
 
     static <T extends Comparable<? super T>> Comparator<T> naturalOrder() {
-        return Comparator.naturalOrder();
+        return (first, second) -> first.compareTo(second);
     }
 
     static <T> Comparator<T> nullsFirst(Comparator<? super T> comparator) {
-        return Comparator.nullsFirst(comparator);
+        return (first, second) -> {
+            if(first == null) return -1;
+            if(second == null) return 1;
+            return comparator.compare(first, second);
+        };
     }
 
     static <T> Comparator<T> nullsLast(Comparator<? super T> comparator) {
-        return Comparator.nullsLast(comparator);
+        return (first, second) -> {
+            if(first == null) return 1;
+            if(second == null) return -1;
+            return comparator.compare(first, second);
+        };
     }
 
-    static <T, U> Comparator<T> comparing(Function<? super T, ? extends U> keyExtractor, Comparator<? super U> keyComparator) {
-        return Comparator.comparing(keyExtractor, keyComparator);
+    static <T, U> Comparator<T> comparing(Function<? super T, ? extends U> extractor, Comparator<? super U> comparator) {
+        return (first, second) -> comparator.compare(extractor.apply(first), extractor.apply(second));
     }
 
-    static <T, U extends Comparable<? super U>> Comparator<T> comparing(Function<? super T, ? extends U> keyExtractor) {
-        return Comparator.comparing(keyExtractor);
+    static <T, U extends Comparable<? super U>> Comparator<T> comparing(Function<? super T, ? extends U> extractor) {
+        return (first, second) -> extractor.apply(first).compareTo(extractor.apply(second));
     }
 
-    static <T> Comparator<T> comparingInt(ToIntFunction<? super T> keyExtractor) {
-        return Comparator.comparingInt(keyExtractor);
+    static <T> Comparator<T> comparingInt(ToIntFunction<? super T> extractor) {
+        return (first, second) -> Integer.compare(extractor.applyAsInt(first), extractor.applyAsInt(second));
     }
 
-    static <T> Comparator<T> comparingLong(ToLongFunction<? super T> keyExtractor) {
-        return Comparator.comparingLong(keyExtractor);
+    static <T> Comparator<T> comparingLong(ToLongFunction<? super T> extractor) {
+        return (first, second) -> Long.compare(extractor.applyAsLong(first), extractor.applyAsLong(second));
     }
 
-    static <T> Comparator<T> comparingDouble(ToDoubleFunction<? super T> keyExtractor) {
-        return Comparator.comparingDouble(keyExtractor);
+    static <T> Comparator<T> comparingDouble(ToDoubleFunction<? super T> extractor) {
+        return (first, second) -> Double.compare(extractor.applyAsDouble(first), extractor.applyAsDouble(second));
     }
 }
