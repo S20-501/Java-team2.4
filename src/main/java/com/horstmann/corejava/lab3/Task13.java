@@ -2,8 +2,10 @@ package com.horstmann.corejava.lab3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class Task13 {
+
 
     private static Runnable runnablesToRunnable(List<Runnable> runnables) {
         return () -> {

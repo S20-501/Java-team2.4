@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class Task10 {
     public static void main(String[] args) {
-        Path path = Path.of("/Users/aleksejagnenkov/IdeaProjects/CoreJava/src/main/java/corejava/chapter3");
+        Path path = Path.of("/Users/nikis/IdeaProjects/");
         System.out.println(Arrays.toString(takeAllSubdirectoriesByPath(path)));
         System.out.println(Arrays.toString(takeAllSubdirectoriesByPathWithLambda(path)));
         System.out.println(Arrays.toString(takeAllSubdirectoriesByPathWithAnon(path)));
