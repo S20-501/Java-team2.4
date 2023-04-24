@@ -36,14 +36,16 @@ public class IteratorTask {
             return new MyIterator<>(iterator);
         }
 
-        <K> Map<K, E> collectToMap(Function<E, K> func){
-            Map<K, E> map = new HashMap<>();
+        <K> Map<K, List<E>> collectToMap(Function<E, K> func){
+            Map<K, List<E>> map = new HashMap<>();
 
             while (iterator.hasNext()) {
                 E element = iterator.next();
                 K key = func.apply(element);
+                List<E> list = new ArrayList<>();
+                list.add(element);
 
-                map.put(key, element);
+                map.put(key, list);
             }
 
             return map;
@@ -87,7 +89,7 @@ public class IteratorTask {
 
         MyIterator<TableEntry> iterator = MyIterator.fromIterator(tableList.iterator());
 
-        Map<Integer, TableEntry> map = iterator.collectToMap(tableEntry -> tableEntry.id);
+        Map<Integer, List<TableEntry>> map = iterator.collectToMap(tableEntry -> tableEntry.id);
 
         System.out.println(map);
 
