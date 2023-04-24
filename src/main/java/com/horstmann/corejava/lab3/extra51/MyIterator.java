@@ -1,37 +1,53 @@
 package com.horstmann.corejava.lab3.extra51;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class MyIterator<T> implements Iterator<T> {
+    private Iterator<T> iterator;
 
-    private List<T> list;
-    private int position;
+    public MyIterator(Iterator<T> iterator) {
+        this.iterator = iterator;
+    }
 
-    public MyIterator(List<T> list) {
-        this.list = list;
-        position = 0;
+    public static <T> FilteringIterator<T> fromIterator(Iterator<T> iterator) {
+        return new FilteringIterator<>(new MyIterator<>(iterator));
+    }
+
+/*    public Map<K, List<E>> collectToMap(Function<E, K> func) {
+        Map<K, List<E>> map = new HashMap<>();
+        while (iterator.hasNext()) {
+            E element = iterator.next();
+            K key = func.apply(element);
+            if (!map.containsKey(key)) {
+                map.put(key, new ArrayList<>());
+            }
+            map.get(key).add(element);
+        }
+        return map;
+    }*/
+
+    public ArrayList<T> collect() {
+        ArrayList<T> list = new ArrayList<>();
+        while (iterator.hasNext()) {
+            list.add(iterator.next());
+        }
+        return list;
     }
 
     @Override
     public boolean hasNext() {
-        return position < list.size();
+        return iterator.hasNext();
     }
 
     @Override
     public T next() {
-        T element = list.get(position);
-        position++;
-        return element;
+        return iterator.next();
     }
-
-    public static <T> FilteringIterator<T> fromIterator(Iterator<T> iterator) {
-        return new FilteringIterator<>(iterator);
-    }
-
 }
-
 class FilteringIterator<T> implements Iterator<T> {
 
     private Iterator<T> iterator;
@@ -73,4 +89,5 @@ class FilteringIterator<T> implements Iterator<T> {
         findNextElement();
         return element;
     }
+
 }
