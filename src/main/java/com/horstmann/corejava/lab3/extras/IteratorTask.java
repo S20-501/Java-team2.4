@@ -42,10 +42,14 @@ public class IteratorTask {
             while (iterator.hasNext()) {
                 E element = iterator.next();
                 K key = func.apply(element);
-                List<E> list = new ArrayList<>();
-                list.add(element);
 
-                map.put(key, list);
+                if (map.containsKey(key)){
+                    map.get(key).add(element);
+                } else {
+                    List<E> list = new ArrayList<>();
+                    list.add(element);
+                    map.put(key, list);
+                }
             }
 
             return map;
@@ -83,9 +87,13 @@ public class IteratorTask {
     public static void main(String[] args) {
         List<TableEntry> tableList = new ArrayList<>();
 
+        TableEntry commonTableentry = new TableEntry(0, "Common");
+
         tableList.add(new TableEntry(1, "Foo"));
         tableList.add(new TableEntry(2, "Bar"));
+        tableList.add(commonTableentry);
         tableList.add(new TableEntry(3, "Baz"));
+        tableList.add(commonTableentry);
 
         MyIterator<TableEntry> iterator = MyIterator.fromIterator(tableList.iterator());
 
