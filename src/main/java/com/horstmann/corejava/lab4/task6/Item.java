@@ -14,7 +14,7 @@ public class Item {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof Item)) return false;
+        if (!(o instanceof Item)) return false;//null тоже не подходит
         Item item = (Item) o;
         return Double.compare(item.price, price) == 0 &&
                 Objects.equals(description, item.description);

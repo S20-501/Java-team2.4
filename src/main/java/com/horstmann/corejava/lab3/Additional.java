@@ -52,11 +52,7 @@ public class Additional {
     }
 
     public static class comparator implements MyComparator<Comparable>{
-//        @Override
-//        public int compare(Object first, Object second) {
-//            return -1;
-//        }
-        public int compare(Comparable first, Comparable second) {
+          public int compare(Comparable first, Comparable second) {
 
             if(first.getStringField().compareTo(second.getStringField()) != 0)
                 return first.getStringField().compareTo(second.getStringField());
@@ -75,7 +71,39 @@ public class Additional {
                 new Comparable("2",123.123,123),
         };
 
-        Arrays.sort(array,new comparator());
+        //Arrays.sort(array,new comparator());
+
+
+
+
+//        Arrays.sort(array, ((first, second) -> {
+//            if(first.getStringField().compareTo(second.getStringField()) != 0)
+//                return first.getStringField().compareTo(second.getStringField());
+//            else if(Double.compare(first.getDoubleField(),second.getDoubleField()) != 0)
+//                return Double.compare(first.getDoubleField(),second.getDoubleField());
+//            else
+//                return first.getIntField()-second.getIntField();
+//        }));
+
+//        Arrays.sort(array,MyComparator.comparing(Comparable::getStringField,
+//                        ((Comparable first, Comparable second)->
+//                        {first.getStringField().compareTo(second.getStringField())}))
+//                );
+//
+//
+//        Arrays.sort(array, MyComparator.comparing((first,second) -> {
+//            return ((Comparable)first).getStringField().compareTo((Comparable)second).getStringField());
+//        }). thenComparing((first) -> {
+//            return 1;
+//        }));
+
+        Arrays.sort(array, MyComparator.comparing(Comparable::getStringField, String::compareTo)
+                .thenComparing(Comparable::getDoubleField, Double::compare)
+                .thenComparing(Comparable::getIntField, (first, second) -> first-second));
+
+
+
+
 
         for(Comparable comp : array){
             System.out.println(comp);
