@@ -1,8 +1,5 @@
-package com.horstmann.corejava.lab4;
+package com.horstmann.corejava.lab4.Task9;
 
-import com.horstmann.corejava.lab4.ClassesFor9.Cl1;
-import com.horstmann.corejava.lab4.ClassesFor9.Cl2;
-import com.horstmann.corejava.lab4.lab1_2_3.Point;
 import com.horstmann.corejava.lab4.task6.DiscountedItem;
 import com.horstmann.corejava.lab4.task6.Item;
 
@@ -57,7 +54,6 @@ public class Task9 {
         Class<?> clazz = o.getClass();
         StringJoiner joiner = new StringJoiner(",", clazz.getName() + "{", "}");
         if (clazz.isArray()) {
-            //joiner.add(Arrays.toString((Object[]) o));
             joiner.add(o.toString());
         } else if (clazz.isPrimitive() || clazz.getSimpleName().equals("String") || isBoxType(clazz)) {
             joiner.add(o.toString());
