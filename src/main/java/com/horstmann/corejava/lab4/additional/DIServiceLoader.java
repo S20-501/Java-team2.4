@@ -22,7 +22,7 @@ public class DIServiceLoader<T> implements Iterable<T>{
     }
 
     private Map<String, T> loadBeans() {
-        Map<String, T> beans = new HashMap<>();
+        Map<String, T> beans = new WeakHashMap<>();
 
         try {
             String resourceName = "META-INF/services/" + serviceType.getName();
