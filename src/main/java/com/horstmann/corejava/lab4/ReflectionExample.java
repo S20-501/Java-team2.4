@@ -3,10 +3,6 @@ package com.horstmann.corejava.lab4;
 import java.lang.reflect.Field;
 
 
-//Примеры реального использования:
-//Работа с базой данных
-//Запись в лог
-//toString
 
 public class ReflectionExample {
     private int field_1 = 1;

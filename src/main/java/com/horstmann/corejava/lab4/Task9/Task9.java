@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 public class Task9 {
-    private static Set<Integer> alreadyWatched;
+    private static Set<Object> alreadyWatched;
 
     private static final Set<Class<?>> BOX_TYPES;
 
@@ -37,7 +37,6 @@ public class Task9 {
         class1.otherClass = class2;
         class2.otherClass = class1;
         Integer a = 4;
-        int[] mass = {1, 2, 3};
         System.out.println(toString(class1));
     }
 
@@ -48,9 +47,9 @@ public class Task9 {
             alreadyWatched = new HashSet<>();
             isFirst = true;
         }
-        if (alreadyWatched.contains(o.hashCode()))
+        if (alreadyWatched.contains(o))
             return null;
-        alreadyWatched.add(o.hashCode());
+        alreadyWatched.add(o);
         Class<?> clazz = o.getClass();
         StringJoiner joiner = new StringJoiner(",", clazz.getName() + "{", "}");
         if (clazz.isArray()) {
@@ -63,8 +62,7 @@ public class Task9 {
                     field.setAccessible(true);
                     Class<?> fieldClazz = field.getType();
                     if (fieldClazz.isArray()) {
-                        //joiner.add(field.getName() + "=" + Arrays.toString((Object[]) field.get(field)));
-                        joiner.add(field.getName() + "=" + field.toString());
+                        joiner.add(field.getName() + "=" + field);
                     } else if (fieldClazz.isPrimitive() || fieldClazz.getSimpleName().equals("String") || isBoxType(fieldClazz))
                         joiner.add(field.getName() + "=" + field.get(o).toString());
                     else {
